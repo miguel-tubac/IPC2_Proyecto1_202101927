@@ -60,9 +60,26 @@ class ListaSimple():
         graph = Graph(nombreArchivo)
         tmp = self.nodoInicio
         while tmp != None:
-            graph.add(tmp, tmp.getSiguiente())
+            tiempo_objeto = tmp.getDato()  # Objeto Tiempo
+            amplitud_objeto = tiempo_objeto.getAmplitudObjeto()  # Objeto Amplitud
+            amplitudes_lista = self.getAmplitudes(amplitud_objeto)  # Lista de amplitudes
+            amplitud_tmp = amplitudes_lista.getInicio()
+            while amplitud_tmp != None:
+                amplitud = amplitud_tmp.getDato().getAmplitud()
+                graph.add(tmp, tmp.getSiguiente(), amplitud)
+                amplitud_tmp = amplitud_tmp.getSiguiente()
             tmp = tmp.getSiguiente()
         graph.generar()
+
+    # def graficar(self, nombreArchivo):
+    #     graph = Graph(nombreArchivo)
+    #     tmp = self.nodoInicio
+    #     amp = self.listaAmplitudes.getInicio()
+    #     while tmp != None:
+    #         graph.add(tmp, tmp.getSiguiente(),amp.getDato().getAmplitud())
+    #         tmp = tmp.getSiguiente()
+    #         amp = amp.getSiguiente()
+    #     graph.generar()
 
     def convertirABinario(self):
         tmp = self.nodoInicio
@@ -78,21 +95,6 @@ class ListaSimple():
     #         while datosenal != None:
     #             print(datosenal.dato," ID: ",datosenal.id, "Teimpo: ",tiempoMaximoA)
     #             datosenal = datosenal.getSiguiente()
-
-##----------------------------------------Clase Pila para almacenar la informacion---------------------------------------------------
-# class Pila(ListaSimple): #uso de herencia
-
-#     def push(self, dato):
-#         ListaSimple.insertar(self, dato)
-    
-#     def imprimir(self):
-#         ListaSimple.imprimir(self)
-
-#     def graficar(self, nombreArchivo):
-#         ListaSimple.graficar(self, nombreArchivo)
-
-#     def convertirABinario(self):
-#         ListaSimple.convertirABinario(self)
 
 ##----------------------------------------------Funcion para almacenar la informacion-----------------------------------------------
 class LecturaXML():
@@ -137,11 +139,11 @@ class LecturaXML():
         self.lista_enlazada.graficar('Lista_Enlazada')
 
         # aqui bamos a recorrer para comparar y comprimir la matriz 
-        tmp = None
-        for senal in self.raiz.findall('senal'):
-            for dato in senal.findall('dato'):
-                if int(self.senal.findall('t')) > 0:
-                    tmp = True
+        # tmp = None
+        # for senal in self.raiz.findall('senal'):
+        #     for dato in senal.findall('dato'):
+        #         if int(self.senal.findall('t')) > 0:
+        #             tmp = True
 
         # lista_Reducida = copy.deepcopy(self.lista_enlazada)
         # lista_Reducida.crearMatrizReducida()
@@ -222,7 +224,6 @@ class Tiempo:
         while objAmplitud != None:
             print(objAmplitud.getDato().getAmplitud())
             objAmplitud = objAmplitud.getSiguiente()
-
 
 
 ##-------------------------------------------------------------Menu principal-----------------------------------------------
